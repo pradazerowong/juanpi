@@ -1,0 +1,74 @@
+<template>
+	<div class="list-left" style="height: 1281px;">
+		<ul class="list-title" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+			<li @click="selectCate(index)" v-for="(c,index) in cates" class="bc" :class="{
+				colorRed:index===cate
+			}">{{c.title}}</li>
+			
+		</ul>
+	</div>
+</template>
+<script>
+	export default{
+		data(){
+			return{
+				cates:[{
+					title:"女装",
+					isSelect:true,
+					path:"womensClothing"
+				},{
+					title:"男装",
+					isSelect:false,
+					path:"mensClothing"
+				},{
+					title:"母婴",
+					isSelect:false,
+					path:""
+				},{
+					title:"鞋子",
+					isSelect:false,
+					path:""
+				},{
+					title:"箱包",
+					isSelect:false,
+					path:""
+				},{
+					title:"居家百货",
+					isSelect:false,
+					path:""
+				},{
+					title:"家电数码",
+					isSelect:false,
+					path:""
+				},{
+					title:"内衣配饰",
+					isSelect:false,
+					path:""
+				},{
+					title:"美妆",
+					isSelect:false,
+					path:""
+				},{
+					title:"运动户外",
+					isSelect:false,
+					path:""
+				},{
+					title:"美食",
+					isSelect:false,
+					path:""
+				},{
+					title:"车品文娱",
+					isSelect:false,
+					path:""
+				}],
+				cate:0
+			}
+		},
+		methods:{
+			selectCate(cate){
+				this.cate = cate;
+				this.$router.push({name:this.cates[cate].path})
+			}
+		}
+	}
+</script>
