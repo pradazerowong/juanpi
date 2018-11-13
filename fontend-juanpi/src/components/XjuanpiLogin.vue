@@ -2,14 +2,14 @@
 	<div>
 		<ul class="info-input">
 			<li>
-				<input type="text" name="username" id="username" placeholder="手机号/邮箱/用户名" value="" class="normalInput">
+				<input type="text" name="username" id="username" placeholder="邮箱/用户名" class="normalInput" v-model="username">
 				<em class="reg-close" style="display: none;">
 					<img src="//jp.juancdn.com/jpwebapp_v1/images_v1/user/x.png?2dc3a154-1&amp;sv=449ce9ee">
 				</em>
 			</li>
 			<li>
 				<div class="quickLoginHmtl clear">
-					<input type="tel" class="code-txt normalInput fl" id="code" placeholder="请输入验证码" name="code">
+					<input type="tel" class="code-txt normalInput fl" id="vc" placeholder="请输入验证码" name="vc" v-model="code">
 					<i style="display: none;" class="reg-close fl" id="reg-code-close">
 						<img src="//jp.juancdn.com/jpwebapp_v1/images_v1/user/x.png?2dc3a154-1&amp;sv=449ce9ee">
 					</i>
@@ -20,7 +20,7 @@
 				</div>
 			</li>
 			<li>
-				<input type="password" name="password" id="password" placeholder="密码" class="normalInput">
+				<input @blur="setSha" type="password" name="password" id="password" placeholder="密码" class="normalInput" v-model="password">
 				<em class="reg-close" style="display: none;">
 					<img src="//jp.juancdn.com/jpwebapp_v1/images_v1/user/x.png?2dc3a154-1&amp;sv=449ce9ee">
 				</em>
@@ -35,7 +35,10 @@
 		data(){
 			return{
 				isShowCodeBox:false,
-				sr:null
+				sr:null,
+				username:this.username,
+				code:this.code,
+				password:this.password
 			}
 		},
 		methods:{
@@ -46,6 +49,13 @@
 			},
 			exitCodeBox(){
 				this.isShowCodeBox = false;
+			},
+			setSha(){
+				this.isCloseBtnShow4=false;
+				if(this.password){
+					let sha256 = require("js-sha256").sha256;
+	                this.password = sha256(this.password);
+				}
 			}
 		}
 	}

@@ -5,8 +5,7 @@
 				active:index===loginSwitch
 			}" v-for="(l,index) in loginSwitchs">{{l.title}}</li>
 		</ul>
-		<form id="normal-logo" action="/user/login" method="post" enctype="application/x-www-form-urlencoded" style="">
-			<input name="return_url" type="hidden" value="//m.juanpi.com/cart/?select=3_1">
+		<form id="normal-logo" action="http://108.61.219.68:8000/user/login/" method="post" style="">
 			<div class="login-info">
 				<keep-alive>
 
@@ -15,9 +14,8 @@
 				</keep-alive>
 
 				<a id="btn_login" class="sub disable-btn" rel="nofollow">登 录</a>
+				<input type="submit" class="disabled" value="登录">
 				<div id="login_l" class="other-action">
-					<label class="freeLogin on"><input type="checkbox" class="ck" name="auto" checked="checked"><i class="before"><img
-							 src="//jp.juancdn.com/jpwebapp_v1/images_v1/user/label_on.png?63443b91-1&amp;sv=449ce9ee"></i>两周内免登录</label>
 					<a href="//m.juanpi.com/user/forget" target="_parent" class="free-reg">忘记密码？</a>
 				</div>
 			</div>
@@ -81,25 +79,7 @@
 			selectLoginSwitch(loginSwitch){
 				this.loginSwitch = loginSwitch;
 				this.currentSwitch = this.loginSwitchs[loginSwitch].switchType;
-			},
-			register(){
-            	var _self = this;
-            	_self.setSha()
-		   		let params = new URLSearchParams(_self.pw)
-    			params.append('username', _self.phone)
-    			params.append('email', _self.email)
-    			params.append('vc', _self.code)
-    			sessionStorage.setItem('sessionid', _self.code);
-      			axios.post('http://108.61.219.68:8000/user/register/',params)
-				.then((response)=>{		
-					console.log(response)
-
-				})
-				.catch(function(error) {
-					console.log(error);
-				});
-	
-            }
+			}
 		}
 	};
 </script>
