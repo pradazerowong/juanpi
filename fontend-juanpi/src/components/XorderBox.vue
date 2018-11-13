@@ -2,12 +2,19 @@
 	<div class="item-empty">
 		<img src="//jp.juancdn.com/jpwebapp_v1/images_v1/shopping/empty-order.png?598b3089-1&amp;sv=449ce9ee">
 		<div class="b-title">暂无订单</div>
-		<a href="//m.juanpi.com" class="btn">今日推荐</a>
+		<a @click="go()" class="btn">今日推荐</a>
 	</div>
 	
 </template>
 
 <script>
+	export default {
+		methods: {
+			go() {
+				this.$router.push('home')
+			}
+		}
+	}
 </script>
 
 <style scoped>

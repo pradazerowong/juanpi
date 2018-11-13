@@ -56,18 +56,64 @@ const routes = [
     name:'categories' ,
     children: [
       {
-        // 当 /user/:id/profile 匹配成功，
-        // UserProfile 会被渲染在 User 的 <router-view> 中
         path: 'womensClothing',
         component: CategoriesChannel,
         name:'womensClothing'
       },
       {
-        // 当 /user/:id/posts 匹配成功
-        // UserPosts 会被渲染在 User 的 <router-view> 中
         path: 'mensClothing',
         component: CategoriesChannel,
         name:'mensClothing'
+      },
+      {
+        path: 'maternalAndInfant',
+        component: CategoriesChannel,
+        name:'maternalAndInfant'
+      },
+      {
+        path: 'shoe',
+        component: CategoriesChannel,
+        name:'shoe'
+      },
+      {
+        path: 'luggage',
+        component: CategoriesChannel,
+        name:'luggage'
+      },
+      {
+        path: 'commodity',
+        component: CategoriesChannel,
+        name:'commodity'
+      },
+      {
+        path: 'household',
+        component: CategoriesChannel,
+        name:'household'
+      },
+      {
+        path: 'underclothesAndAccessory',
+        component: CategoriesChannel,
+        name:'underclothesAndAccessory'
+      },
+      {
+        path: 'beautyMakeUp',
+        component: CategoriesChannel,
+        name:'beautyMakeUp'
+      },
+      {
+        path: 'sportsAndOutDoor',
+        component: CategoriesChannel,
+        name:'sportsAndOutDoor'
+      },
+      {
+        path: 'goodies',
+        component: CategoriesChannel,
+        name:'goodies'
+      },
+      {
+        path: 'carEntertainment',
+        component: CategoriesChannel,
+        name:'carEntertainment'
       },
       {
         path: '/categories',

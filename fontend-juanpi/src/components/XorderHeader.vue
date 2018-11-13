@@ -11,10 +11,10 @@
 		<div class="top-menu">
 			<div class="top-menu-box">
 				<nav data-page="0">
-					<a class="active" href="//m.juanpi.com/order">全部订单</a>
-					<a href="//m.juanpi.com/order/index/t/1">待付款</a>
-					<a href="//m.juanpi.com/order/index/t/13">待成团</a>
-					<a href="//m.juanpi.com/order/index/t/14">待收货</a>
+					<a class="active" >全部订单</a>
+					<a >待付款</a>
+					<a >待成团</a>
+					<a >待收货</a>
 				</nav>
 			</div>
 		</div>

@@ -23,43 +23,43 @@
 				},{
 					title:"母婴",
 					isSelect:false,
-					path:""
+					path:"maternalAndInfant"
 				},{
 					title:"鞋子",
 					isSelect:false,
-					path:""
+					path:"shoe"
 				},{
 					title:"箱包",
 					isSelect:false,
-					path:""
+					path:"luggage"
 				},{
 					title:"居家百货",
 					isSelect:false,
-					path:""
+					path:"commodity"
 				},{
 					title:"家电数码",
 					isSelect:false,
-					path:""
+					path:"household"
 				},{
 					title:"内衣配饰",
 					isSelect:false,
-					path:""
+					path:"underclothesAndAccessory"
 				},{
 					title:"美妆",
 					isSelect:false,
-					path:""
+					path:"beautyMakeUp"
 				},{
 					title:"运动户外",
 					isSelect:false,
-					path:""
+					path:"sportsAndOutDoor"
 				},{
 					title:"美食",
 					isSelect:false,
-					path:""
+					path:"goodies"
 				},{
 					title:"车品文娱",
 					isSelect:false,
-					path:""
+					path:"carEntertainment"
 				}],
 				cate:0
 			}
@@ -68,6 +68,16 @@
 			selectCate(cate){
 				this.cate = cate;
 				this.$router.push({name:this.cates[cate].path})
+			},
+			getCode(){
+				axios.get("http://localhost:3000/api/getIndex")
+				.then(function(response) {
+		          	console.log(response);
+		        })
+	        	.catch(function(error) {
+	          		console.log(error);
+		        });
+			  
 			}
 		}
 	}

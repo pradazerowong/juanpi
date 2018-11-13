@@ -22,36 +22,6 @@
 				</div>
 			</div>
 		</form>
-		<form id="quick-login" action="/muser/password" method="post" enctype="application/x-www-form-urlencoded" style="display: none;">
-			<div class="login-info">
-				<ul class="info-input clear">
-					<li>
-						<input type="tel" pattern="[0-9]*" placeholder="请输入手机号码" id="mobile" name="mobile" class="normalInput">
-						<em class="reg-close" style="display: none;" id="reg-mobile-close">
-							<img src="//jp.juancdn.com/jpwebapp_v1/images_v1/user/x.png?2dc3a154-1&amp;sv=449ce9ee">
-						</em>
-					</li>
-					<li>
-						<div class="quickLoginHmtl clear">
-							<input type="tel" class="code-txt normalInput fl" id="code" placeholder="请输入验证码" name="code">
-							<i style="display: none;" class="reg-close fl" id="reg-code-close">
-								<img src="//jp.juancdn.com/jpwebapp_v1/images_v1/user/x.png?2dc3a154-1&amp;sv=449ce9ee">
-							</i>
-							<a class="btn_get get-code disable-code" id="code_btn" href="javascript:;">获取验证码</a>
-						</div>
-					</li>
-				</ul>
-				<input type="hidden" name="mtoken" value="b13429272cfcbc644af6a77cb907f24a" id="mtoken">
-				<input type="hidden" name="mtokenact" value="quick" id="mtokenact">
-				<a id="btn_quick_login" class="sub codeBtn disable-btn" rel="nofollow">登 录</a>
-				<a style="display:none;" id="normal_login" class="sub disable-btn" rel="nofollow">登 录</a>
-				<div id="quick_l" class="other-action">
-					<label class="freeLogin on"><input type="checkbox" class="ck" name="auto_quick" checked="checked"><i class="before"><img
-							 src="//jp.juancdn.com/jpwebapp_v1/images_v1/user/label_on.png?63443b91-1&amp;sv=449ce9ee"></i>两周内免登录</label>
-					<a href="//m.juanpi.com/user/forget" target="_parent" class="free-reg">忘记密码？</a>
-				</div>
-			</div>
-		</form>
 		<div class="wap-app">
 			<h3 class="third-txt">第三方账号快速登录</h3>
 			<div class="third-app clear">
@@ -81,6 +51,7 @@
 <script>
 	import XjuanpiLogin from "./XjuanpiLogin.vue";
 	import XmobileLogin from "./XmobileLogin.vue";
+	import axios from "axios";
 	export default {
 		components: {
 		    	juanpiLogin:XjuanpiLogin,
@@ -96,14 +67,39 @@
 					switchType:"mobileLogin"
 				}],
 				loginSwitch:0,
-				currentSwitch:"juanpiLogin"
+				currentSwitch:"juanpiLogin",
+				pw:""
 			}
 		},
+		setSha(){
+            let sha256 = require("js-sha256").sha256//这里用的是require方法，所以没用import
+            this.pw = sha256(this.passWord)//要加密的密码
+            console.log(this.pw)//这就是你加密之后的密码
+
+          },
 		methods:{
 			selectLoginSwitch(loginSwitch){
 				this.loginSwitch = loginSwitch;
 				this.currentSwitch = this.loginSwitchs[loginSwitch].switchType;
-			}
+			},
+			register(){
+            	var _self = this;
+            	_self.setSha()
+		   		let params = new URLSearchParams(_self.pw)
+    			params.append('username', _self.phone)
+    			params.append('email', _self.email)
+    			params.append('vc', _self.code)
+    			sessionStorage.setItem('sessionid', _self.code);
+      			axios.post('http://108.61.219.68:8000/user/register/',params)
+				.then((response)=>{		
+					console.log(response)
+
+				})
+				.catch(function(error) {
+					console.log(error);
+				});
+	
+            }
 		}
 	};
 </script>

@@ -1,19 +1,45 @@
 <template>
 	<div class="app">
 		<XlistHeader/>
-		<XlistNav />
+		<div class="goods-sort-scroll" style="height: 87px;">
+		<div class="goods-sort-scroll-box">
+			<div class="goods-sort hide" style="display: block;">
+				<div class="goods-sort-box">
+					<table>
+						<tbody>
+							<tr>
+								<td @click="selectSortTab(index)" v-for="(s,index) in sortTabs" :class="[{active:index===sortTab},`${s.path}`]">{{s.title}}</td>
+								<td @click="showFilter" :class="{
+									active:isShowFilterSelect===true
+								}">筛选</td>
+								<td><span class="sort-icon"></span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="cate-label ">
+				<div class="cate-label-box ">
+					<nav>
+						<a class="active ">全部</a>
+						<a>羽绒棉服</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
 		<router-view></router-view>
 		<div>
 			<div class="alert_normal_fullbg" v-show="shows">
 			</div>
 			<div class="filter" v-show="shows">
-				<div class="filter_left"></div>
+				<div @click="showFilter" class="filter_left"></div>
 				<div class="filter_right">
 					<div class="filter_title">筛选</div>
 					<div class="filter_only">
-						<div class="only_item" data-id="5">会员专属</div>
-						<div class="only_item" data-id="2">卷皮优选</div>
-						<div class="only_item" data-id="1">卷皮直发</div>
+						<div @click="selectFilterCheck(index)" v-for="(f,index) in filters" class="only_item" :data-id="index" :class="{
+							active:f.isSelectFilter===true
+						}">{{f.title}}</div>
 					</div>
 
 					<div class="price_title">价格区间(元)</div>
@@ -31,13 +57,13 @@
 					</div>
 					<div class="categorys clear">
 
-						<div id="913">女士羽绒服</div>
-						<div id="912">女士棉服</div>
-						<div id="911">女士皮衣/皮草</div>
+						<div @click="selectCategoriesCheck(index)" v-for="(c,index) in categories" :id="index" class="categories_item" :class="{
+							active:c.isSelectCategories===true
+						}">{{c.title}}</div>
 					</div>
 					<div class="filter_bnt">
-						<div class="reset">重置</div>
-						<div class="ensure" @click="screen1">确定</div>
+						<div @click="filterReset()" class="reset">重置</div>
+						<div class="ensure" @click="screen1()">确定</div>
 					</div>
 				</div>
 			</div>
@@ -48,25 +74,102 @@
 </template>
 <script>
 	import XlistHeader from "../components/XlistHeader.vue";
-	import XlistNav from "../components/XlistNav.vue";
+	
 
 	export default {
 		components: {
-			XlistHeader,
-			XlistNav
+			XlistHeader
+		
 
 		},
 		data() {
 			return {
-				shows: false
+				sortTabs:[{
+					title:"推荐",
+					path:"all",
+				},
+				{
+					title:"价格",
+					path:"price"
+				},
+				{
+					title:"销量",
+					path:"sales"
+				},
+				{
+					title:"上新",
+					path:"starttime"
+				}
+				],
+				sortTab:0,
+				shows: false,
+				filters:[{
+					title:"会员专属",
+					isSelectFilter:false
+				},
+				{
+					title:"卷皮优选",
+					isSelectFilter:false
+				},{
+					title:"卷皮直发",
+					isSelectFilter:false
+				}
+				],
+				categories:[{
+					title:"女士羽绒服",
+					isSelectCategories:false
+				},
+				{
+					title:"女士棉服",
+					isSelectCategories:false
+				},{
+					title:"女士皮衣/皮草",
+					isSelectCategories:false
+				}],
+				isShowFilterSelect:false
 			}
 		},
 		methods: {
-			screen() {
+			selectSortTab(sortTab){
+				this.sortTab = sortTab;
+				if(sortTab===4){
+					this.shows = !this.shows;
+				}else{
+					this.$router.push({name:this.sortTabs[sortTab].path,query: {cid:this.$route.query.cid,name:this.$route.query.name}});	
+				}
+			},
+			showFilter(){
 				this.shows = !this.shows;
 			},
 			screen1() {
 				this.shows = !this.shows;
+				console.log(this.$router);
+				var isFliterActive = document.querySelector(".only_item.active");
+				var isCategoriesActive = document.querySelector(".categories_item.active");
+				
+				if(isFliterActive===null&&isCategoriesActive===null){
+					this.isShowFilterSelect=false;
+				}else{
+					this.isShowFilterSelect=true;
+				}
+				this.$router.push({path:this.$router.history.current.path,query: {cid:this.$route.query.cid,name:this.$route.query.name}});
+				
+			},
+			selectCategoriesCheck(index){
+				this.categories[index].isSelectCategories = !this.categories[index].isSelectCategories;	
+			},
+			selectFilterCheck(index){
+				this.filters[index].isSelectFilter = !this.filters[index].isSelectFilter;	
+			},
+			filterReset(){
+				this.shows = !this.shows;
+				for(var i=0;i<this.filters.length;i++){
+					this.filters[i].isSelectFilter = false;
+				}
+				for(var i=0;i<this.categories.length;i++){
+					this.categories[i].isSelectCategories = false;
+				}
+				this.isShowFilterSelect=false;
 			}
 
 		}

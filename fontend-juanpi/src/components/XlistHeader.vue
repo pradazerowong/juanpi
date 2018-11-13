@@ -4,10 +4,10 @@
 			<span id="t-find" style="top:-10px">
                 <a class="btn btn-left" href="#/categories">
                      <span class="iconfont icon-fanhui"></span>
-			</a>
+				</a>
 			</span>
-			<span id="t-index">{{this.$route.query.name}}</span>
-			<a class="keywords" href="//m.juanpi.com/keywords">
+			<span id="t-index">{{cname}}</span>
+			<a class="keywords" href="#/keywords">
 				<span class="iconfont icon-sousuo"></span>
 			</a>
 			<div class="menu-more" @click="show()"  >
@@ -49,7 +49,8 @@
 					
 				}],
 				shows:false ,
-				num:0
+				num:0,
+				cname:this.$route.query.cname
 				
 			}
 		},
@@ -62,17 +63,16 @@
 			go(num){
 				this.num = num
 				if(num===0){
-				this.$router.history.push('home');
+				this.$router.push({name:'home'});
 
 				}
 				else if(num===1){
-//				this.$router.history.push('list');
+//				this.$router.push({name:'list'});
 				
 				
 				}
-				else if(num===2){
-					
-//				this.$router.history.push('signin');
+				else if(num===2){				
+				this.$router.push({name:'signin'});
 				}
 			}
 		}

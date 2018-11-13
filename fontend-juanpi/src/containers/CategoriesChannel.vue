@@ -75,6 +75,36 @@
 					case "/categories/mensClothing":
 						this.channel = 1;
 						break;
+					case "/categories/maternalAndInfant":
+						this.channel = 2;
+						break;
+					case "/categories/shoe":
+						this.channel = 3;
+						break;
+					case "/categories/luggage":
+						this.channel = 4;
+						break;
+					case "/categories/commodity":
+						this.channel = 5;
+						break;
+					case "/categories/household":
+						this.channel = 6;
+						break;
+					case "/categories/underclothesAndAccessory":
+						this.channel = 7;
+						break;
+					case "/categories/beautyMakeUp":
+						this.channel = 8;
+						break;
+					case "/categories/sportsAndOutDoor":
+						this.channel = 9;
+						break;
+					case "/categories/goodies":
+						this.channel = 10;
+						break;
+					case "/categories/carEntertainment":
+						this.channel = 11;
+						break;
 					default:
 						this.channel = 0;
 				}

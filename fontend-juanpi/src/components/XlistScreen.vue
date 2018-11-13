@@ -7,9 +7,9 @@
 			<div class="filter_right">
 				<div class="filter_title">筛选</div>
 				<div class="filter_only">
-					<div class="only_item" data-id="5">会员专属</div>
-					<div class="only_item" data-id="2">卷皮优选</div>
-					<div class="only_item" data-id="1">卷皮直发</div>
+					<div @click="selectFilterCheck(index)" v-for="(f,index) in filters" class="only_item" data-id="index" class="{
+						active:`${f.isSelectFilter}`===true
+					}">{{f.title}}</div>
 				</div>
 
 				<div class="price_title">价格区间(元)</div>
@@ -45,12 +45,28 @@
 	export default {
 		data() {
 			return {
-				shows: true
+				shows: true,
+				filters:[{
+					title:"会员专属",
+					isSelectFilter:false
+				},
+				{
+					title:"卷皮优选",
+					isSelectFilter:false
+				},{
+					title:"卷皮直发",
+					isSelectFilter:false
+				}
+				]
 			}
 		},
 		methods: {
 			screen(){
 				this.shows = !this.shows;
+			},
+			selectFilterCheck(index){
+				this.filters[index].isSelectFilter = !this.filters[index].isSelectFilter;
+				
 			}
 		}
 	}
